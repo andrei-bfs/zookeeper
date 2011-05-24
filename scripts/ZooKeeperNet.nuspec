@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>ZooKeeperNet</id>
+    <version>3.3.0</version>
+    <authors>ZooKeeper</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>ZooKeeper .NET client.</description>
+  </metadata>
+  <files>
+    <file src="..\build\ZooKeeperNet\bin\**" target="" />
+  </files>
+</package>
+
