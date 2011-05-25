@@ -1,7 +1,5 @@
 properties { 
 	$projectName = "ZooKeeperNet"
-    $version = "3.4.0"
-	$buildNumber = 0
 	$rootDir  = Resolve-Path ..\
 	$buildOutputDir = "$rootDir\build\$projectName"
 	$srcDir = "$rootDir\src\dotnet"
@@ -28,5 +26,16 @@ task CopyBuildOutput -depends Compile {
 }
 
 task CreateNuGetPackage -depends CopyBuildOutput {
-	exec { .\NuGet.exe pack ".\$projectName.nuspec" -o ..\build -version $version }
+    [string]$version = Get-Version "$rootDir\build.xml"
+	exec { .\NuGet.exe pack ".\$projectName.nuspec" -o "$buildOutputDir" -version $version }
+}
+
+function Get-Version {
+    param 
+    (
+        [string]$filePath
+    )
+    
+    [xml]$nuspecXml = Get-Content $filePath
+    return ($nuspecXml.project.property | where { $_.name -eq "version" }).value
 }
