@@ -4,6 +4,7 @@ properties {
 	$buildOutputDir = "$rootDir\build\$projectName"
 	$srcDir = "$rootDir\src\dotnet"
 	$solutionFilePath = "$srcDir\$projectName.sln"
+    $repositoryPath
 }
 
 task default -depends Compile, CopyBuildOutput, CreateNuGetPackage
@@ -28,6 +29,13 @@ task CopyBuildOutput -depends Compile {
 task CreateNuGetPackage -depends CopyBuildOutput {
     [string]$version = Get-Version "$rootDir\build.xml"
 	exec { .\NuGet.exe pack ".\$projectName.nuspec" -o "$buildOutputDir" -version $version }
+}
+
+task PublishPackage {
+	$packages = Get-ChildItem $buildOutputDir\*.nupkg
+	foreach($package in $packages){
+		Copy-Item $package "$repositoryPath"
+	}
 }
 
 function Get-Version {
