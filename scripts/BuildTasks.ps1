@@ -1,5 +1,6 @@
 properties { 
 	$projectName = "ZooKeeperNet"
+    $version = "3.4.0"
 	$buildNumber = 0
 	$rootDir  = Resolve-Path ..\
 	$buildOutputDir = "$rootDir\build\$projectName"
@@ -27,6 +28,5 @@ task CopyBuildOutput -depends Compile {
 }
 
 task CreateNuGetPackage -depends CopyBuildOutput {
-	$version = "3.3.0"
 	exec { .\NuGet.exe pack ".\$projectName.nuspec" -o ..\build -version $version }
 }
