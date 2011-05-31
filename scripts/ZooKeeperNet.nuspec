@@ -8,7 +8,7 @@
     <description>ZooKeeper .NET client.</description>
   </metadata>
   <files>
-    <file src="..\build\ZooKeeperNet\bin\**" target="" />
+    <file src="..\build\ZooKeeperNet\bin\**" target="lib" />
   </files>
 </package>
 
