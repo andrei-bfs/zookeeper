@@ -28,7 +28,7 @@ task CopyBuildOutput -depends Compile {
 
 task CreateNuGetPackage -depends CopyBuildOutput {
     [string]$version = Get-Version "$rootDir\build.xml"
-	exec { .\NuGet.exe pack ".\$projectName.nuspec" -o "$buildOutputDir" -version $version }
+	exec { .\NuGet.exe pack ".\$projectName.nuspec" -o "$buildOutputDir" -BasePath .\ -version $version }
 }
 
 task PublishPackage {
