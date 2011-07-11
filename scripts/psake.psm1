@@ -76,6 +76,8 @@ function ExecuteTask
         Assert ($task.Action -ne $null) "Error: Action parameter must be specified when using PreAction or PostAction parameters"
       }
 
+	 
+	  
       if ($task.Action -ne $null)
       {
         try
@@ -96,9 +98,12 @@ function ExecuteTask
           {
             & $task.PreAction
           }
-
-          $script:context.Peek().formatTaskNameString -f $taskName
+		  
+		  #$script:context.Peek().formatTaskNameString -f $taskName
+		  $formatTaskName = $script:context.Peek().formatTaskNameString -f $taskName
+		  Write-Host "##teamcity[blockOpened name='$formatTaskName']"
           & $task.Action
+		  Write-Host "##teamcity[blockClosed name='$formatTaskName']"
 
           if ($task.PostAction -ne $null)
           {
